@@ -1,0 +1,80 @@
+<style>
+  body {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 800px; /* Reduced the width for a simpler look */
+  }
+  .login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .form-control {
+    border-radius: 7px;
+    margin-bottom: 20px; /* Added some space between form fields */
+  }
+  .btn-custom {
+    background-color: #007bff;
+    color: white;
+    margin-top: 10px;
+    border-radius: 50px;
+    width: 100%;
+    padding: 10px;
+  }
+  .btn-custom:hover {
+    background-color: #0056b3;
+  }
+   .atag{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<div class="login-container">
+ <h2>{{#if title}}{{title}}{{else}}Create a new account{{/if}}</h2>
+
+  {{#if error}}
+    <p class="text-center" style="color: red;">{{error}}</p>
+  {{/if}}
+  <form action="/signup" method="POST">
+    
+    <!-- Name Field -->
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" minlength="4" value="{{name}}" pattern="^[A-Za-z0-9_-]+$" class="form-control" id="name" name="name" placeholder="Enter your full name" required>   
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+  <label for="username">Enter Your Email</label>
+  <input type="email" value="{{username}}" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+</div>
+
+    <!-- Password Field -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" minlength="4" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-custom">Create Account</button>
+     <a href="/" class="atag">Login your existing account</a>
+  </form>
+</div>
+
+<script>
+  // Real-time validation to restrict invalid characters in the username field
+  document.getElementById("name").addEventListener("input", function(event) {
+    // Remove any non-alphanumeric, non-underscore, and non-dash characters
+    this.value = this.value.replace(/[^A-Za-z0-9_-]/g, '');
+  });
+</script>

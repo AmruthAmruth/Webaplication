@@ -1,0 +1,78 @@
+<div class="container py-5">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary">Admin Dashboard</h1>
+        <form action="/admin/logout" method="POST">
+            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+        </form>
+    </div>
+
+    <!-- Search and Add New User Section -->
+    <div class="mb-4">
+        <div class="input-group">
+            <input type="text" id="searchUser" class="form-control m-1 p-2" placeholder="Search by name or email">
+            <button class="btn btn-outline-primary" onclick="searchUsers()">Search</button>
+        </div>
+        <form action="/admin/adduser" method="post">
+        <button class="btn btn-success mt-3" >Add New User</button>
+        </form>
+    </div>
+
+    <!-- User Table -->
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">User Management</h5>
+        </div>
+        <div class="card-body">
+            {{#if users}}
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>  
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable">
+                    {{#each users}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.email}}</td>
+                    
+                        <td>
+                            <form action="/admin/user/{{this._id}}/update" method="post" style="display: inline;">
+                            <button class="btn btn-warning btn-sm">Update</button>
+                            </form>
+                            <form action="/admin/user/{{this._id}}/delete" method="post" style="display: inline;">
+                                <button type="submit" onclick="return confirmDelete()" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p class="text-muted">No users found.</p>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this user?");
+    }
+</script>
+
+
+<script>
+    function searchUsers() {
+        const searchInput = document.getElementById('searchUser').value.toLowerCase();
+        const userRows = document.querySelectorAll('#userTable tr');
+        userRows.forEach(row => {
+            const name = row.cells[0].textContent.toLowerCase();
+            const email = row.cells[0].textContent.toLowerCase();
+            row.style.display = (name.includes(searchInput) || email.includes(searchInput)) ? '' : 'none';
+        });
+    }
+</script>

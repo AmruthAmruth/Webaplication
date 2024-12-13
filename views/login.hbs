@@ -1,0 +1,72 @@
+<style>
+  body {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 800px; 
+  }
+  .login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .form-control {
+    border-radius: 7px;
+    margin-bottom: 20px; 
+  }
+  .btn-custom {
+    background-color: #007bff;
+    color: white;
+    margin-top: 10px;
+    border-radius: 50px;
+    width: 100%;
+    padding: 10px;
+  }
+  .btn-custom:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  .atag{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+</style>
+
+<div class="login-container">
+  <h2 >Login Your Account</h2>
+  {{#if error}}
+    <p class="text-center"  style="color: red;">{{error}}</p>
+  {{/if}}
+  <form action="/" method="POST">
+
+
+    <!-- Email Field -->
+    <div class="form-group">
+  <label for="username">Enter Your Email</label>
+  <input type="email"  class="form-control" id="email" name="email" placeholder="Enter your email" required>
+</div>
+
+    <!-- Password Field -->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" minlength="4" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+    </div>
+    
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-custom">LOGIN</button>
+    <a href="/signup" class="atag">Create a new Account</a>
+    <a href="/admin" class="atag">Admin login</a>
+  </form>
+</div>
+
+
